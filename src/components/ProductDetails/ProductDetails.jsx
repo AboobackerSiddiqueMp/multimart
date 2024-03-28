@@ -16,38 +16,26 @@ const ProductDetails = ({ selectedProduct }) => {
     dispatch(addToCart({ product: selectedProduct, num: quantity }));
     toast.success("Product has been added to cart!");
   };
+  console.log('po====',selectedProduct)
 
   return (
     <section className="product-page">
       <Container>
         <Row className="justify-content-center">
           <Col md={6}>
-            <img loading="lazy" src={selectedProduct?.imgUrl} alt="" />
+            <img loading="lazy" src={selectedProduct?.images[0]} alt="" />
           </Col>
           <Col md={6}>
-            <h2>{selectedProduct?.productName}</h2>
+            <h2>{selectedProduct?.title}</h2>
             <div className="rate">
-              <div className="stars">
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star"></i>
-              </div>
-              <span>{selectedProduct?.avgRating} ratings</span>
+              
             </div>
             <div className="info">
               <span className="price">${selectedProduct?.price}</span>
-              <span>category:{selectedProduct?.category}</span>
+              <span>category:{selectedProduct?.category.name}</span>
             </div>
             <p>{selectedProduct?.shortDesc}</p>
-            <input
-              className="qty-input"
-              type="number"
-              placeholder="Qty"
-              value={quantity}
-              onChange={handleQuantityChange}
-            />
+           
             <button
               aria-label="Add"
               type="submit"
@@ -56,6 +44,7 @@ const ProductDetails = ({ selectedProduct }) => {
             >
               Add To Cart
             </button>
+            <p>{selectedProduct.description}</p>
           </Col>
         </Row>
       </Container>

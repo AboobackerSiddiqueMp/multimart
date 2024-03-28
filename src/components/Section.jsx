@@ -1,7 +1,10 @@
 import { Container, Row } from "react-bootstrap";
 import ProductCard from "./ProductCard/ProductCard";
 
-const Section = ({ title, bgColor, productItems }) => {
+const Section = ({ title, bgColor, productItem }) => {
+  console.log("ggg====", productItem);
+  const firstTenItems = productItem.slice(0, 5);
+
   return (
     <section style={{ background: bgColor }}>
       <Container>
@@ -9,15 +12,10 @@ const Section = ({ title, bgColor, productItems }) => {
           <h1>{title}</h1>
         </div>
         <Row className="justify-content-center">
-          {productItems.map((productItem) => {
-            return (
-              <ProductCard
-                key={productItem.id}
-                title={title}
-                productItem={productItem}
-              />
-            );
-          })}
+          {Array.isArray(firstTenItems) &&
+            firstTenItems.map((productItem) => (
+              <ProductCard title={title} productItem={productItem} />
+            ))}
         </Row>
       </Container>
     </section>

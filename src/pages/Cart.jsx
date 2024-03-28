@@ -36,15 +36,15 @@ const Cart = () => {
                 <div className="cart-list" key={item.id}>
                   <Row>
                     <Col className="image-holder" sm={4} md={3}>
-                      <img src={item.imgUrl} alt="" />
+                      <img src={item.images[0]} alt="" />
                     </Col>
                     <Col sm={8} md={9}>
                       <Row className="cart-content justify-content-center">
                         <Col xs={12} sm={9} className="cart-details">
                           <h3>{item.productName}</h3>
                           <h4>
-                            ${item.price}.00 * {item.qty}
-                            <span>${productQty}.00</span>
+                          &#8377;{item.price}.00 * {item.qty}
+                            <span>&#8377;{productQty}.00</span>
                           </h4>
                         </Col>
                         <Col xs={12} sm={3} className="cartControl">
@@ -81,7 +81,7 @@ const Cart = () => {
               <h2>Cart Summary</h2>
               <div className=" d_flex">
                 <h4>Total Price :</h4>
-                <h3>${totalPrice}.00</h3>
+                <h3>&#8377;{totalPrice}.00</h3>
               </div>
             </div>
           </Col>

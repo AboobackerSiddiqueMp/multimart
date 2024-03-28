@@ -1,17 +1,26 @@
 import { Col, Container, Row } from "react-bootstrap";
 import FilterSelect from "../components/FilterSelect";
-import SearchBar from "../components/SeachBar/SearchBar";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { products } from "../utils/products";
 import ShopList from "../components/ShopList";
 import Banner from "../components/Banner/Banner";
 import useWindowScrollToTop from "../hooks/useWindowScrollToTop";
+import { getcategoriesAPI, getcategoriesbyidAPI } from "../services/allAPI";
 
 const Shop = () => {
-  const [filterList, setFilterList] = useState(
-    products.filter((item) => item.category === "sofa")
-  );
+  const [filterList, setFilterList] = useState(2);
+  const [product,setproduct]=useState('')
+  console.log(filterList)
   useWindowScrollToTop();
+ const getfilter=async()=>{
+  const result=await getcategoriesbyidAPI(filterList)
+  console.log(result)
+  setproduct(result.data)
+
+ }
+ useEffect(()=>{
+  getfilter()
+ },[filterList])
 
   return (
     <Fragment>
@@ -23,12 +32,11 @@ const Shop = () => {
               <FilterSelect setFilterList={setFilterList} />
             </Col>
             <Col md={8}>
-              <SearchBar setFilterList={setFilterList} />
             </Col>
           </Row>
         </Container>
         <Container>
-          <ShopList productItems={filterList} />
+          <ShopList productItems={product} />
         </Container>
       </section>
     </Fragment>

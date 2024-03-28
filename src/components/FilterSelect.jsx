@@ -1,13 +1,7 @@
 import Select from 'react-select';
 import { products } from '../utils/products';
-
-const options = [
-    { value: "sofa", label: "Sofa" },
-    { value: "chair", label: "Chair" },
-    { value: "watch", label: "Watch" },
-    { value: "mobile", label: "Mobile" },
-    { value: "wireless", label: "Wireless" },
-];
+import { useEffect, useState } from 'react';
+import { getcategoriesAPI } from '../services/allAPI';
 
 const customStyles = {
     control: (provided) => ({
@@ -25,8 +19,8 @@ const customStyles = {
         backgroundColor: state.isSelected ? "#0f3460" : "white",
         color: state.isSelected ? "white" : "#0f3460",
         "&:hover": {
-        backgroundColor: "#0f3460",
-        color: "white",
+            backgroundColor: "#0f3460",
+            color: "white",
         },
     }),
     singleValue: (provided) => ({
@@ -35,17 +29,36 @@ const customStyles = {
     }),
 };
 
-const FilterSelect = ({setFilterList}) => {
-    const handleChange = (selectedOption)=> {
-        setFilterList(products.filter(item => item.category ===selectedOption.value))
+const FilterSelect = ({ setFilterList }) => {
+    const [options, setOptions] = useState([]);
+
+    const handleChange = (selectedOption) => {
+        setFilterList(selectedOption.value)
     }
+
+    useEffect(() => {
+        const getcategories = async () => {
+            const result = await getcategoriesAPI();
+            const productItem = result.data;
+            // Take only the first 5 items from productItem
+            const firstItems = productItem.slice(0, 5);
+            // Transform firstItems into an array of options
+            const optionsArray = firstItems.map(item => ({
+                value: item.id, // Change this to the appropriate value from your productItem object
+                label: item.name // Change this to the appropriate label from your productItem object
+            }));
+            setOptions(optionsArray);
+        }
+        getcategories();
+    }, []);
+
     return (
-    <Select
-    options={options}
-    defaultValue={{ value: "", label: "Filter By Category" }}
-    styles={customStyles}
-    onChange={handleChange}
-    />
+        <Select
+            options={options}
+            defaultValue={{ value: "", label: "Filter By Category" }}
+            styles={customStyles}
+            onChange={handleChange}
+        />
     );
 };
 
