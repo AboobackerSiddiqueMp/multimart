@@ -31,7 +31,7 @@ const ProductDetails = ({ selectedProduct }) => {
               
             </div>
             <div className="info">
-              <span className="price">${selectedProduct?.price}</span>
+              <span className="price">&#8377;{selectedProduct?.price}</span>
               <span>category:{selectedProduct?.category.name}</span>
             </div>
             <p>{selectedProduct?.shortDesc}</p>

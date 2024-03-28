@@ -5,7 +5,6 @@ import ShopList from "../components/ShopList";
 import { products } from "../utils/products";
 import { useLocation, useParams } from "react-router-dom";
 import ProductDetails from "../components/ProductDetails/ProductDetails";
-import ProductReviews from "../components/ProductReviews/ProductReviews";
 import useWindowScrollToTop from "../hooks/useWindowScrollToTop";
 
 const Product = () => {
@@ -22,9 +21,7 @@ const Product = () => {
       <ProductDetails selectedProduct={productItem} />
       <section className="related-products">
         <Container>
-          <h3>You might also like</h3>
         </Container>
-        {/* <ShopList productItems={relatedProducts} /> */}
       </section>
     </Fragment>
   );
